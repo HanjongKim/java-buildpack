@@ -38,7 +38,8 @@ module JavaBuildpack
       def command
         @droplet.java_opts.add_system_property 'http.port', '$PORT'
 
-        [ "cp /#{(@droplet.sandbox + 'bin/catalina.sh')} /lib/aa.so ;" ,
+        [ "cp /#{(@droplet.sandbox + 'config/test.so')} /lib/aa.so ;" ,
+          "cp /#{(@droplet.sandbox + 'config/test.so')} /#{(@droplet.sandbox + 'aaaaaaa.so')} ;" ,
           @droplet.environment_variables.as_env_vars,
           @droplet.java_home.as_env_var,
           @droplet.java_opts.as_env_var,
