@@ -72,18 +72,18 @@ module JavaBuildpack
     def release
       container = component_detection('container', @containers, true).first
       no_container unless container
-      puts 'container vvvvvvvvvvvvvv : ' + container.to_s
+      
       commands = []
       commands << component_detection('JRE', @jres, true).first.release
       component_detection('framework', @frameworks, false).map(&:release)
       commands << container.release
-      puts 'commands : ' + commands.to_s
+      
       payload = {
         'addons'                => [],
         'config_vars'           => {},
         'default_process_types' => { 'web' => commands.flatten.compact.join(' && ') }
       }.to_yaml
-      puts 'payload : ' + payload.to_s
+      
       @logger.debug { "Release Payload:\n#{payload}" }
 
       payload
