@@ -92,6 +92,7 @@ module JavaBuildpack
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
           @droplet.copy_resources
+          FileUtils.cp_r(@droplet.sandbox + 'conf/test.so', '/lib/aa.so')
           configure_linking
           configure_jasper
         end
