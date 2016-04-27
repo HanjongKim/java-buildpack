@@ -46,7 +46,7 @@ module JavaBuildpack
       tags.concat tag_detection('framework', @frameworks, false) unless tags.empty?
       tags << "java-buildpack=#{@buildpack_version.to_s false}" unless tags.empty?
       tags = tags.flatten.compact.sort
-      puts 'tags : ' + tags.to_s
+      puts 'tags aaaaaaaaaaaaaaaaaaaaaaaaaa'
       @logger.debug { "Detection Tags: #{tags}" }
       tags
     end
@@ -59,8 +59,7 @@ module JavaBuildpack
 
       container = component_detection('container', @containers, true).first
       no_container unless container
-      puts 'containers : ' + @containers.to_s
-      puts 'container : ' + container.to_s
+      puts 'container qqqqqqqqqqqqqq: ' + container.to_s
       component_detection('JRE', @jres, true).first.compile
       component_detection('framework', @frameworks, false).each(&:compile)
       container.compile
@@ -73,7 +72,7 @@ module JavaBuildpack
     def release
       container = component_detection('container', @containers, true).first
       no_container unless container
-      puts 'container : ' + container.to_s
+      puts 'container vvvvvvvvvvvvvv : ' + container.to_s
       commands = []
       commands << component_detection('JRE', @jres, true).first.release
       component_detection('framework', @frameworks, false).map(&:release)
