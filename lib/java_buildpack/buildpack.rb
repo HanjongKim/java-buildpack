@@ -46,7 +46,7 @@ module JavaBuildpack
       tags.concat tag_detection('framework', @frameworks, false) unless tags.empty?
       tags << "java-buildpack=#{@buildpack_version.to_s false}" unless tags.empty?
       tags = tags.flatten.compact.sort
-
+      puts 'tags : ' + tags
       @logger.debug { "Detection Tags: #{tags}" }
       tags
     end
@@ -59,7 +59,8 @@ module JavaBuildpack
 
       container = component_detection('container', @containers, true).first
       no_container unless container
-
+      puts 'containers : ' + @containers
+      puts 'container : ' + container
       component_detection('JRE', @jres, true).first.compile
       component_detection('framework', @frameworks, false).each(&:compile)
       container.compile
@@ -72,18 +73,18 @@ module JavaBuildpack
     def release
       container = component_detection('container', @containers, true).first
       no_container unless container
-
+      puts 'container : ' + container
       commands = []
       commands << component_detection('JRE', @jres, true).first.release
       component_detection('framework', @frameworks, false).map(&:release)
       commands << container.release
-
+      puts 'commands : ' + commands
       payload = {
         'addons'                => [],
         'config_vars'           => {},
         'default_process_types' => { 'web' => commands.flatten.compact.join(' && ') }
       }.to_yaml
-
+      puts 'payload : ' + payload
       @logger.debug { "Release Payload:\n#{payload}" }
 
       payload
